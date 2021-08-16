@@ -36,6 +36,14 @@
           }, { scope: 'email,user_photos,user_posts' });  
     } 
 
+        
+    function postMessage() {  
+         FB.api('/me/feed', 'post', {  
+             message: document.getElementById('Message').value  
+         });  
+    } 
+
+        
     </script> 
 
 </head>
@@ -45,5 +53,10 @@
         <input type="button" value="Login" onclick="FbApp_Login();" />  
     </div> 
 
+    <label id="lable1">Enter the Message</label>  
+    <input type="text" id="Message" />  
+    <input type="button" id="postButton" value="Post Message" onclick="postMessage();" /> 
+
+    
 </body>
 </html>
