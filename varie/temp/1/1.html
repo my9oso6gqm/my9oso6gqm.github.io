@@ -28,7 +28,14 @@
     function FbApp_Login() {  
          FB.login(function (response) {  
              if (response.authResponse) {  
-                 // some code here  
+                 // some code here 
+                 
+                     function postMessage() {  
+         FB.api('/me/feed', 'post', {  
+             message: document.getElementById('Message').value  
+         });  
+    } 
+                 
              }  
              else {  
                  alert("Attempt of Login is Failed!");  
@@ -37,11 +44,7 @@
     } 
 
         
-    function postMessage() {  
-         FB.api('/me/feed', 'post', {  
-             message: document.getElementById('Message').value  
-         });  
-    } 
+
 
         
     </script> 
