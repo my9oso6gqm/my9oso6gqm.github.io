@@ -19,7 +19,7 @@
 </p>
 <p>
 Ottenendo una stringa di testo la similitudine con un’altra immagine è calcolata attraverso la formula per il coseno di similitudine:
-$$ \frac{\sum _{k=1}^n A(k) B(k)}{\sqrt{\sum _{k=1}^n A k^2} \sqrt{\sum _{k=1}^n B k^2}} $$
+$$ \frac{\sum _{k=1}^n A(k) B(k)}{\sqrt{\sum _{k=1}^n A (k)^2} \sqrt{\sum _{k=1}^n B (k)^2}} $$
 </p>
 <p>
 Per generare l’hash dunque si procede con due passaggi. Per prima cosa si passa un’immagine in una rete neurale per generare una descrizione. Poi in un secondo passaggio la descrizione viene passata nell’algoritmo di perceptual hashing, da non confondere con l’hashing crittografico. Infatti nel primo caso non esiste l’effetto valanga che porta a una minima differenza dell’entrata uno stravolgimento dell’uscita
