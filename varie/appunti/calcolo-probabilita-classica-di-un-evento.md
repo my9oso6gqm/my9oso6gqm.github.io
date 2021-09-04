@@ -6,7 +6,7 @@ $$ P(A)=\frac{a}{b} $$
 
 Dove:
 
-a: Numero di casi faorevoli.
+a: Numero di casi favorevoli.
 
 b: Numero di casi possibili.
 
@@ -14,15 +14,11 @@ Immaginiamo che in 5 giorni (la varibile b) per 2 giorni (la variabile a) si ver
 
 In Python:
 
-a = 2
-
-b = 5
-
-c = a / b
-
-d = c * 100
-
-print (d)
+    a = 2
+    b = 5
+    c = a / b
+    d = c * 100
+    print (d)
 
 Resituirà 40.0
 
