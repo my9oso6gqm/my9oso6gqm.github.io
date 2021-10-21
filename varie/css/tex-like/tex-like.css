@@ -1,4 +1,4 @@
-img, embed, object, video, .MathJax_Display, .MJXc-display, .MathJax_SVG_Display {
+img, embed, object, video, MathJax_Display, MJXc-display, MathJax_SVG_Display {
 max-width: 100%;
 }
 .pagina {
