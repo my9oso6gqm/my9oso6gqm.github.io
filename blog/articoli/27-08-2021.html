@@ -2,12 +2,12 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/varie/css/tex-like/tex-like.css">
+<script type="text/javascript" src="/varie/js/mathjax/es5/latest.js">
+</script>
 </head>
 <body>
 <div class="pagina">
 <h1>my9oso6gqm</h1>
-<script id="MathJax-script" async src="/varie/js/mathjax/es5/tex-mml-chtml.js">
-</script>
 <p id="menu">
 <script src="/varie/js/menu/menu.js">
 </script>
@@ -19,8 +19,12 @@
 </p>
 <p>
 Ottenendo una stringa di testo la similitudine con un’altra immagine è calcolata attraverso la formula per il coseno di similitudine:
-$$ \frac{\sum _{k=1}^n A(k) B(k)}{\sqrt{\sum _{k=1}^n A (k)^2} \sqrt{\sum _{k=1}^n B (k)^2}} $$
 </p>
+<div class="mate">
+$$
+\frac{\sum _{k=1}^n A(k) B(k)}{\sqrt{\sum _{k=1}^n A (k)^2} \sqrt{\sum _{k=1}^n B (k)^2}}
+$$
+</div>
 <p>
 Per generare l’hash dunque si procede con due passaggi. Per prima cosa si passa un’immagine in una rete neurale per generare una descrizione. Poi in un secondo passaggio la descrizione viene passata nell’algoritmo di perceptual hashing, da non confondere con l’hashing crittografico. Infatti nel primo caso non esiste l’effetto valanga che porta a una minima differenza dell’entrata uno stravolgimento dell’uscita
 </p>
