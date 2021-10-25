@@ -9,7 +9,7 @@ margin-bottom: 12%;
 } 
 .mate {
 overflow-x: scroll;
-overflow-x: hidden;
+overflow-x: auto;
 }
 * {
 font-family: serif;
