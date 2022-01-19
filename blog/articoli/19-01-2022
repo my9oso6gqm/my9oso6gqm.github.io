@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/varie/css/tex-like/tex-like.css">
+<script type="text/javascript" src="/varie/js/mathjax/es5/tex-chtml.js">
+</script>
+</head>
+<body>
+<div class="pagina">
+<h1>my9oso6gqm</h1>
+<p id="menu">
+<script src="/varie/js/menu/menu.js">
+</script>
+</p>
+<h2>Blog</h2>
+<h3>Un po' di probabilità al tavolo verde, a mente</h3>
+<p>
+Gli outs sono il numero di carte che migliorano la nostra mano. Esempio: abbiamo 🂾🃍. Gli outs per una coppia sono i rimanenti 🂮🃎🃞🂭🂽🃝, cioè 6 outs.
+</p>
+<p>
+Possiamo calcolare la probabilità di una coppia al river con:
+</p>
+<div class="mate">
+$$
+\text{p(outs)}=1-\left(\frac{47-\text{outs}}{47}\cdot\frac{46-\text{outs}}{46}\right)
+$$
+</div>
+<p>
+Un calcolo possibile a mente ma che possiamo semplificare al frenetico tavolo con:
+</p>
+<div class="mate">
+$$
+\text{p(outs)}=\text{outs}\cdot4
+$$
+</div>
+<p>
+Provare per credere.
+</p>
+</div>
+</body>
+</html>
