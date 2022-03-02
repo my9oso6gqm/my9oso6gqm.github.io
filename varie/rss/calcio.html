@@ -1,0 +1,29 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="rss.global.min.js"></script>
+<script>
+window.onload = function() {
+new RSS(
+document.querySelector("#rss-feeds"),
+['https://www.gazzetta.it/rss/calcio.xml', 'https://www.tuttosport.com/rss/calcio', 'http://www.repubblica.it/rss/sport/calcio/rss2.0.xml', 'https://www.ansa.it/sito/notizie/sport/calcio/calcio_rss.xml'], {
+limit: 100,
+entryTemplate: '<p><a href="{url}">{title}</a><br/></p>',
+layoutTemplate: '<p>{entries}</p>',
+order: '-publishedDate',
+}
+).render();
+};
+</script>
+<style>
+body {
+  font-family: 'Times New Roman', serif;
+}
+</style>
+</head>
+<body>
+<h1>Notizie calcio</h1>
+<p>Gazzeta dello Sport - TuttoSport - Repubblica - Ansa</p>
+<div id="rss-feeds"></div>
+</body>
+</html> 
