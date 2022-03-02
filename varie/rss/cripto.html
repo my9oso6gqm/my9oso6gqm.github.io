@@ -9,7 +9,7 @@ document.querySelector("#rss-feeds"),
 ["https://www.ft.com/cryptocurrencies?format=rss", "https://www.ilsole24ore.com/rss/finanza--criptovalute.xml"], {
 limit: 100,
 entryTemplate: '<p><a href="{url}">{title}</a><br/></p>',
-layoutTemplate: '{entries}'
+layoutTemplate: '<p>{entries}</p>'
 order: '-publishedDate',
 }
 ).render();
