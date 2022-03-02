@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>RSS Example</title>
-    <script src="rss.global.min.js"></script>
-    <script>
-      window.onload = function() {
-        new RSS(
-          document.querySelector("#rss-feeds"),
-          "https://www.ft.com/cryptocurrencies?format=rss"
-        ).render();
-      };
-    </script>
-  </head>
-  <body>
-    <div id="rss-feeds"></div>
-  </body>
+<head>
+<script src="rss.global.min.js"></script>
+<script>
+window.onload = function() {
+new RSS(
+document.querySelector("#rss-feeds"),
+"https://www.ft.com/cryptocurrencies?format=rss",
+limit: 10
+).render();
+};
+</script>
+</head>
+<body>
+<center><h1>Notizie cripto</h1></center>
+<div id="rss-feeds"></div>
+</body>
 </html>
