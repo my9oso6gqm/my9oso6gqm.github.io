@@ -6,8 +6,9 @@
 window.onload = function() {
 new RSS(
 document.querySelector("#rss-feeds"),
-"https://www.ft.com/cryptocurrencies?format=rss", {
+["https://www.ft.com/cryptocurrencies?format=rss", "https://www.ilsole24ore.com/rss/finanza--criptovalute.xml"], {
 limit: 20,
+entryTemplate: '<a href="{url}">{title}</a><br/>{shortBodyPlain}'
 }
 ).render();
 };
