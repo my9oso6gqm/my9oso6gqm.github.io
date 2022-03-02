@@ -6,7 +6,9 @@
 window.onload = function() {
 new RSS(
 document.querySelector("#rss-feeds"),
-"https://www.ft.com/cryptocurrencies?format=rss"
+"https://www.ft.com/cryptocurrencies?format=rss", {
+limit: 20,
+}
 ).render();
 };
 </script>
