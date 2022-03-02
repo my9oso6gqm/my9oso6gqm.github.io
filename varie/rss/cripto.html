@@ -7,16 +7,16 @@ window.onload = function() {
 new RSS(
 document.querySelector("#rss-feeds"),
 ["https://www.ft.com/cryptocurrencies?format=rss", "https://www.ilsole24ore.com/rss/finanza--criptovalute.xml"], {
-limit: 20,
-entryTemplate: '<a href="{url}">{title}</a><br/>{shortBodyPlain}'
+limit: 100,
+entryTemplate: '<p><a href="{url}">{title}</a><br/></p>'
 }
 ).render();
 };
 </script>
 </head>
 <body>
-<center><h1>Notizie cripto</h1></center>
-<center><p>Il Sole 24 Ore - Financial Times</p></center>
+<h1>Notizie cripto</h1>
+<p>Financial Times - Il Sole 24 Ore</p>
 <div id="rss-feeds"></div>
 </body>
 </html>
