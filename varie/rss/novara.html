@@ -1,0 +1,29 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="rss.global.min.js"></script>
+<script>
+window.onload = function() {
+new RSS(
+document.querySelector("#rss-feeds"),
+["https://www.novaratoday.it/rss", "https://www.novara24news.it/index.php?format=feed&type=rss", "https://www.lavocedinovara.com/feed/", "https://www.newsnovara.it/links/rss/argomenti/newsnovarait/rss.xml", "https://www.buongiornonovara.com/feed/"], {
+limit: 100,
+entryTemplate: '<p><a href="{url}">{title}</a><br/></p>',
+layoutTemplate: '<p>{entries}</p>',
+order: '-publishedDate',
+}
+).render();
+};
+</script>
+<style>
+body {
+font-family: 'Times New Roman', serif;
+}
+</style>
+</head>
+<body>
+<h1>Notizie Novara</h1>
+<p>Financial Times - Il Sole 24 Ore</p>
+<div id="rss-feeds"></div>
+</body>
+</html>
