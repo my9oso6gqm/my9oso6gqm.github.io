@@ -1,58 +1,64 @@
-; Disabilita la creazione del file auto-save
+;; Imposta la load-path
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+;; Disabilita la creazione del file auto-save
 (setq auto-save-default nil)
 
-; Disabilita la creazione del file backup
+;; Disabilita la creazione del file backup
 (setq make-backup-files nil)
 
-; Schermata d'avvio Emacs nascosta 
+;; Schermata d'avvio Emacs nascosta 
 (custom-set-variables '(inhibit-startup-screen t))
 
-; Numero riga
+;; Numero riga
 (global-linum-mode t)
 
-; Tasti copia taglia incolla classici
+;; Tasti copia taglia incolla classici
 (cua-mode t)
 
-; Barra degli strumenti nascosta
+;; Barra degli strumenti nascosta
 (tool-bar-mode -1)
 
-; Finesta Emacs massimizzata all'avvio
-; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; Finesta Emacs massimizzata all'avvio
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-; Correttore ortogafico in modalità Tex (dipende da aspell-it)
+;; Correttore ortogafico in modalità Tex (dipende da aspell-it)
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 
-; Menu Math in modalità Tex (dipende da auctex)
+;; Menu Math in modalità Tex (dipende da auctex)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 
-; Righe di testo non superano gli 80 caratteri in modalità testo e Org
-; (setq-default fill-column 80)
-; (add-hook 'text-mode-hook 'turn-on-auto-fill)
-; (add-hook 'org-mode-hook 'turn-on-auto-fill)
+;; Righe di testo non superano gli 80 caratteri in modalità testo e Org
+;; (setq-default fill-column 80)
+;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
-; Scratch buffer in modalità testo
+;; Scratch buffer in modalità testo
 (setq initial-major-mode 'text-mode)
 
-; Scratch buffer vuoto
+;; Scratch buffer vuoto
 (setq initial-scratch-message nil)
 
-; Numero colonna
+;; Numero colonna
 (setq column-number-mode t)
 
-; Righe di testo superano gli 80 caratteri in modalità Tex
-; (add-hook 'LaTeX-mode-hook 'turn-off-auto-fill)
+;; Righe di testo superano gli 80 caratteri in modalità Tex
+;; (add-hook 'LaTeX-mode-hook 'turn-off-auto-fill)
 
-; Doc-view in modalità continuous 
+;; Doc-view in modalità continuous 
 (setq doc-view-continuous t)
 
-; Usare python3 al posto del deprecato python
+;; Usa python3 al posto del deprecato python
 (setq python-shell-interpreter "python3")
 
-; Dimensioni avvio
+;; Dimensioni avvio
 (add-to-list 'default-frame-alist '(height . 48))
 (add-to-list 'default-frame-alist '(width . 80))
 
-; Menu taglia copia incolla
+;; Carica latex-preview-pane
+(load "latex-preview-pane-master/latex-preview-pane")
+
+;; Menu taglia copia incolla
 (global-set-key [mouse-3] 'my-context-menu)
 
 (with-eval-after-load "menu-bar"
