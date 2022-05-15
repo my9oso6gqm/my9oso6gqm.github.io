@@ -22,10 +22,11 @@
 ;; Finesta massimizzata all'avvio
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; Correttore ortogafico in modalità TeX (dipende da aspell-it)
+;; Correttore ortogafico in modalità testo e/o TeX (dipende da aspell-it)
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook 'flyspell-mode)
 
-;; Menu math in modalità TeX (dipende da auctex)
+;; Menu Math in modalità Tex (dipende da auctex)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 
 ;; Righe di testo non superano gli 80 caratteri in modalità testo e/o TeX
