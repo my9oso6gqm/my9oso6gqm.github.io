@@ -25,7 +25,7 @@
 ;; Correttore ortogafico in modalità TeX (dipende da aspell-it)
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 
-;; Menu Math in modalità Tex (dipende da auctex)
+;; Menu math in modalità TeX (dipende da auctex)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 
 ;; Righe di testo non superano gli 80 caratteri in modalità testo e/o TeX
