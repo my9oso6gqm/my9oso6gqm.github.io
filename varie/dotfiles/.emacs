@@ -7,7 +7,7 @@
 ;; Disabilita la creazione del file backup
 (setq make-backup-files nil)
 
-;; Schermata d'avvio Emacs nascosta 
+;; Schermata d'avvio nascosta 
 (custom-set-variables '(inhibit-startup-screen t))
 
 ;; Numero riga
@@ -19,19 +19,19 @@
 ;; Barra degli strumenti nascosta
 (tool-bar-mode -1)
 
-;; Finesta Emacs massimizzata all'avvio
+;; Finesta massimizzata all'avvio
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; Correttore ortogafico in modalità Tex (dipende da aspell-it)
+;; Correttore ortogafico in modalità TeX (dipende da aspell-it)
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 
 ;; Menu Math in modalità Tex (dipende da auctex)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 
-;; Righe di testo non superano gli 80 caratteri in modalità testo e Org
+;; Righe di testo non superano gli 80 caratteri in modalità testo e/o TeX
 ;; (setq-default fill-column 80)
 ;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
-;; (add-hook 'org-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'LaTeX-mode-hook 'turn-off-auto-fill)
 
 ;; Scratch buffer in modalità testo
 (setq initial-major-mode 'text-mode)
@@ -42,16 +42,13 @@
 ;; Numero colonna
 (setq column-number-mode t)
 
-;; Righe di testo superano gli 80 caratteri in modalità Tex
-;; (add-hook 'LaTeX-mode-hook 'turn-off-auto-fill)
-
 ;; Doc-view in modalità continuous 
 (setq doc-view-continuous t)
 
 ;; Usa python3 al posto del deprecato python
 (setq python-shell-interpreter "python3")
 
-;; Dimensioni avvio
+;; Dimensioni finestra all'avvio
 (add-to-list 'default-frame-alist '(height . 48))
 (add-to-list 'default-frame-alist '(width . 80))
 
@@ -110,15 +107,3 @@
     (popup-menu edit-popup-menu)))
 
 (provide 'context-menu)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(send-mail-function (quote smtpmail-send-it)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
