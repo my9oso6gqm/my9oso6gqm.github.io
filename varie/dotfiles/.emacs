@@ -4,7 +4,7 @@
 ; Disabilita la creazione del file backup
 (setq make-backup-files nil)
 
-;Schermata d'avvio Emacs nascosta 
+; Schermata d'avvio Emacs nascosta 
 (custom-set-variables '(inhibit-startup-screen t))
 
 ; Numero riga
