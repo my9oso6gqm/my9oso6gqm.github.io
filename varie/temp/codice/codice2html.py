@@ -1,6 +1,5 @@
-## !pip install pandoc
+## dipende da pandoc
 
-import pandoc
+import os
 
-input = pandoc.read(file='codice.md')
-output = pandoc.write(input, file="output.html", options=["--template=modello.html"])
+os.system('pandoc --template modello.html 1.md -o 1.html')
