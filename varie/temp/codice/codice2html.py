@@ -1,3 +1,5 @@
+## !pip install pandoc
+
 import pandoc
 
 input = pandoc.read(file='codice.md')
