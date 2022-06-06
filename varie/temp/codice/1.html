@@ -6,7 +6,6 @@
 </script>
 </head>
 <body>
-<pre>
 <div class="pagina">
 <p>def average(lst): return sum(lst) / len(lst)</p>
 <p>class ForLoopBackTester: def <strong>init</strong>(self): self.small_window=deque() self.large_window=deque() self.list_position=[] self.list_cash=[] self.list_holdings = [] self.list_total=[]</p>
@@ -56,7 +55,6 @@ def buy_sell_or_hold_something(self,price_update):
 <p>naive_backtester=ForLoopBackTester() for line in zip(goog_data.index,goog_data[‘Adj Close’]): date=line[0] price=line[1] price_information={‘date’ : date, ‘price’ : float(price)} is_tradable = naive_backtester.create_metrics_out_of_prices(price_information) if is_tradable: naive_backtester.buy_sell_or_hold_something(price_information)</p>
 <p>plt.plot(naive_backtester.list_total,<br />
 label=“Holdings+Cash using Naive BackTester”) plt.legend() plt.show()</p>
-</pre>
 </div>
 </body>
 </html>
