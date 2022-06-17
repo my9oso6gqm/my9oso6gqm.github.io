@@ -1,4 +1,4 @@
-img, embed, object, video {
+img, embed, object, video pre {
 max-width: 100%;
 }
 .pagina {
@@ -10,6 +10,9 @@ margin-bottom: 12%;
 .mate {
 overflow-x: auto;
 }
-* {
+.p {
 font-family: serif;
+}
+.sourceCode {
+overflow-x: auto;
 }
