@@ -1,4 +1,4 @@
-img, embed, object, video, pre {
+img, embed, object, video {
 max-width: 100%;
 }
 .pagina {
@@ -15,5 +15,4 @@ font-family: serif;
 }
 .sourceCode {
 overflow-x: auto;
-font-family: monospace;
 }
