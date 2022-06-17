@@ -10,7 +10,13 @@ margin-bottom: 12%;
 .mate {
 overflow-x: auto;
 }
-h p li {
+h {
+font-family: serif;
+}
+p {
+font-family: serif;
+}
+li {
 font-family: serif;
 }
 .sourceCode {
