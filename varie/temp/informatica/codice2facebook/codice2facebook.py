@@ -7,5 +7,5 @@ with open(sys.argv[1], 'r') as file :
 documento = documento.replace('\n', ' ↵ ')
 documento = documento.replace('    ', ' ↹ ')
 
-with open(sys.argv[2]', 'w') as file:
+with open(sys.argv[2], 'w') as file:
     file.write(documento)
