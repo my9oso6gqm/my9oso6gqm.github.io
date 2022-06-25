@@ -14,81 +14,80 @@
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="im">import</span> time</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="kw">def</span> dati(valuta, limite):</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    client <span class="op">=</span> Client(base_url <span class="op">=</span> <span class="st">&#39;https://api.binance.com&#39;</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    data <span class="op">=</span> client.klines(valuta, <span class="st">&#39;1m&#39;</span>, limit <span class="op">=</span> limite)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    df <span class="op">=</span> pd.DataFrame(data)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    df[<span class="dv">0</span>] <span class="op">=</span> (pd.to_datetime(df[<span class="dv">0</span>], unit <span class="op">=</span> <span class="st">&#39;ms&#39;</span>))</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    df <span class="op">=</span> df.drop(columns <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>])</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>    df.columns <span class="op">=</span> [<span class="st">&#39;data&#39;</span>, <span class="st">&#39;apertura&#39;</span>, <span class="st">&#39;massimo&#39;</span>, <span class="st">&#39;minimo&#39;</span>, <span class="st">&#39;chiusura&#39;</span>, <span class="st">&#39;volume&#39;</span>]</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>    df[<span class="st">&#39;chiusura&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;chiusura&#39;</span>].astype(<span class="bu">float</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    <span class="cf">return</span> df</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>dati <span class="op">=</span> dati(<span class="st">&#39;BTCUSDT&#39;</span>, <span class="dv">60</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a><span class="kw">def</span> doppia_media_mobile(dati,window_short,window_long):</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>    segnali <span class="op">=</span> pd.DataFrame(index <span class="op">=</span> dati.index)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>    segnali[<span class="st">&#39;segnali&#39;</span>] <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>    segnali[<span class="st">&#39;chiusura&#39;</span>] <span class="op">=</span> dati[<span class="st">&#39;chiusura&#39;</span>]</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a>    segnali[<span class="st">&#39;media mobile corta&#39;</span>] <span class="op">=</span> dati[<span class="st">&#39;chiusura&#39;</span>].rolling(window <span class="op">=</span> window_short,min_periods <span class="op">=</span> <span class="dv">1</span>,center <span class="op">=</span> <span class="va">False</span>).mean()</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a>    segnali[<span class="st">&#39;media mobile lunga&#39;</span>] <span class="op">=</span> dati[<span class="st">&#39;chiusura&#39;</span>].rolling(window <span class="op">=</span> window_long,min_periods <span class="op">=</span> <span class="dv">1</span>,center <span class="op">=</span> <span class="va">False</span>).mean()</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>    segnali[<span class="st">&#39;segnali&#39;</span>][window_short:] <span class="op">=</span> np.where(segnali[<span class="st">&#39;media mobile corta&#39;</span>][window_short:] <span class="op">&gt;</span> segnali[<span class="st">&#39;media mobile lunga&#39;</span>][window_short:],<span class="fl">1.0</span>,<span class="fl">0.0</span>)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a>    segnali[<span class="st">&#39;ordini&#39;</span>] <span class="op">=</span> segnali[<span class="st">&#39;segnali&#39;</span>].diff()</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a>    <span class="cf">return</span> segnali</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a>dati_doppia_media_mobile <span class="op">=</span> doppia_media_mobile(dati, <span class="dv">3</span>, <span class="dv">9</span>)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a><span class="kw">def</span> grafico(dati):</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a>    fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">15</span>, <span class="dv">15</span>), dpi <span class="op">=</span> <span class="dv">80</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true"></a>    ax1 <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, ylabel <span class="op">=</span> <span class="st">&#39;Valuta in $&#39;</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true"></a>    dati[<span class="st">&#39;chiusura&#39;</span>].plot(ax <span class="op">=</span> ax1, color <span class="op">=</span> <span class="st">&#39;g&#39;</span>, lw <span class="op">=</span> <span class="fl">2.</span>, legend <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true"></a>    dati[<span class="st">&#39;media mobile corta&#39;</span>].plot(ax <span class="op">=</span> ax1, color <span class="op">=</span> <span class="st">&#39;r&#39;</span>, lw <span class="op">=</span> <span class="fl">2.</span>, legend <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true"></a>    dati[<span class="st">&#39;media mobile lunga&#39;</span>].plot(ax <span class="op">=</span> ax1, color <span class="op">=</span> <span class="st">&#39;b&#39;</span>, lw <span class="op">=</span> <span class="fl">2.</span>, legend <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true"></a>    ax1.plot(dati.loc[dati.ordini <span class="op">==</span> <span class="fl">1.0</span>].index, dati[<span class="st">&#39;chiusura&#39;</span>][dati.ordini <span class="op">==</span>  <span class="fl">1.0</span>], <span class="st">&#39;^&#39;</span>, markersize <span class="op">=</span> <span class="dv">7</span>, color <span class="op">=</span> <span class="st">&#39;k&#39;</span>)</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true"></a>    ax1.plot(dati.loc[dati.ordini <span class="op">==</span> <span class="op">-</span><span class="fl">1.0</span>].index, dati[<span class="st">&#39;chiusura&#39;</span>][dati.ordini <span class="op">==</span>  <span class="op">-</span><span class="fl">1.0</span>], <span class="st">&#39;v&#39;</span>, markersize <span class="op">=</span> <span class="dv">7</span>, color <span class="op">=</span> <span class="st">&#39;k&#39;</span>)</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true"></a>    plt.legend([<span class="st">&#39;Chiusura&#39;</span>, <span class="st">&#39;Media mobile corta&#39;</span>, <span class="st">&#39;Media mobile lunga&#39;</span>, <span class="st">&#39;Compra&#39;</span>, <span class="st">&#39;Vende&#39;</span>])</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true"></a>    plt.title(<span class="st">&#39;Doppia SMA&#39;</span>)</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true"></a>    plt.show()</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true"></a>grafico(dati_doppia_media_mobile)</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true"></a>key <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true"></a>secret <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true"></a>compra <span class="op">=</span> {</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>    <span class="st">&#39;symbol&#39;</span>: <span class="st">&#39;BTCUSDT&#39;</span>, </span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true"></a>    <span class="st">&#39;side&#39;</span>: <span class="st">&#39;BUY&#39;</span>, </span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true"></a>    <span class="st">&#39;type&#39;</span>: <span class="st">&#39;MARKET&#39;</span>, </span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true"></a>    <span class="st">&#39;quantity&#39;</span>: <span class="fl">0.002</span>, </span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true"></a>}</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true"></a>vendi <span class="op">=</span> {</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true"></a>    <span class="st">&#39;symbol&#39;</span>: <span class="st">&#39;BTCUSDT&#39;</span>, </span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true"></a>    <span class="st">&#39;side&#39;</span>: <span class="st">&#39;SELL&#39;</span>, </span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true"></a>    <span class="st">&#39;type&#39;</span>: <span class="st">&#39;MARKET&#39;</span>, </span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true"></a>    <span class="st">&#39;quantity&#39;</span>: <span class="fl">0.002</span>, </span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true"></a>}</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true"></a><span class="kw">def</span> compra_vendi(dati):</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true"></a>    client <span class="op">=</span> Client(key, secret, base_url <span class="op">=</span> <span class="st">&#39;https://testnet.binance.vision&#39;</span>)</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true"></a>    <span class="cf">if</span> dati[<span class="st">&#39;ordini&#39;</span>].iat[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true"></a>        client.new_order(<span class="op">**</span>compra)</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true"></a>    <span class="cf">elif</span> dati[<span class="st">&#39;ordini&#39;</span>].iat[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>:</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true"></a>        client.new_order(<span class="op">**</span>vendi)</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">60</span>):</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true"></a>  dati <span class="op">=</span> recupero_dati(<span class="st">&#39;BTCUSDT&#39;</span>, <span class="dv">60</span>)</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true"></a>  dati_doppia_media_mobile <span class="op">=</span> doppia_media_mobile(dati, <span class="dv">3</span>, <span class="dv">9</span>)</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true"></a>  compra_vendi(dati_doppia_media_mobile)</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true"></a>  time.sleep(<span class="dv">60</span>)</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true"></a><span class="kw">def</span> rapporto():</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true"></a>  dati_rapporto <span class="op">=</span> client.my_trades(<span class="st">&#39;BTCUSDT&#39;</span>)</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true"></a>  df_rapporto <span class="op">=</span> pd.json_normalize(dati_rapporto)</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true"></a>  <span class="cf">return</span> df_rapporto</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true"></a>rapporto()</span></code></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="kw">def</span> dati(valuta, limite):</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    client <span class="op">=</span> Client(base_url <span class="op">=</span> <span class="st">&#39;https://api.binance.com&#39;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    data <span class="op">=</span> client.klines(valuta, <span class="st">&#39;1m&#39;</span>, limit <span class="op">=</span> limite)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    df <span class="op">=</span> pd.DataFrame(data)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    df[<span class="dv">0</span>] <span class="op">=</span> (pd.to_datetime(df[<span class="dv">0</span>], unit <span class="op">=</span> <span class="st">&#39;ms&#39;</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    df <span class="op">=</span> df.drop(columns <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>])</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    df.columns <span class="op">=</span> [<span class="st">&#39;data&#39;</span>, <span class="st">&#39;apertura&#39;</span>, <span class="st">&#39;massimo&#39;</span>, <span class="st">&#39;minimo&#39;</span>, <span class="st">&#39;chiusura&#39;</span>, <span class="st">&#39;volume&#39;</span>]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>    df[<span class="st">&#39;chiusura&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;chiusura&#39;</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>    <span class="cf">return</span> df</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>dati <span class="op">=</span> dati(<span class="st">&#39;BTCUSDT&#39;</span>, <span class="dv">60</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a><span class="kw">def</span> doppia_media_mobile(dati,window_short,window_long):</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>    segnali <span class="op">=</span> pd.DataFrame(index <span class="op">=</span> dati.index)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>    segnali[<span class="st">&#39;segnali&#39;</span>] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>    segnali[<span class="st">&#39;chiusura&#39;</span>] <span class="op">=</span> dati[<span class="st">&#39;chiusura&#39;</span>]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>    segnali[<span class="st">&#39;media mobile corta&#39;</span>] <span class="op">=</span> dati[<span class="st">&#39;chiusura&#39;</span>].rolling(window <span class="op">=</span> window_short,min_periods <span class="op">=</span> <span class="dv">1</span>,center <span class="op">=</span> <span class="va">False</span>).mean()</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a>    segnali[<span class="st">&#39;media mobile lunga&#39;</span>] <span class="op">=</span> dati[<span class="st">&#39;chiusura&#39;</span>].rolling(window <span class="op">=</span> window_long,min_periods <span class="op">=</span> <span class="dv">1</span>,center <span class="op">=</span> <span class="va">False</span>).mean()</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a>    segnali[<span class="st">&#39;segnali&#39;</span>][window_short:] <span class="op">=</span> np.where(segnali[<span class="st">&#39;media mobile corta&#39;</span>][window_short:] <span class="op">&gt;</span> segnali[<span class="st">&#39;media mobile lunga&#39;</span>][window_short:],<span class="fl">1.0</span>,<span class="fl">0.0</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>    segnali[<span class="st">&#39;ordini&#39;</span>] <span class="op">=</span> segnali[<span class="st">&#39;segnali&#39;</span>].diff()</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a>    <span class="cf">return</span> segnali</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a>dati_doppia_media_mobile <span class="op">=</span> doppia_media_mobile(dati, <span class="dv">3</span>, <span class="dv">9</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a><span class="kw">def</span> grafico(dati):</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a>    fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">15</span>, <span class="dv">15</span>), dpi <span class="op">=</span> <span class="dv">80</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a>    ax1 <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, ylabel <span class="op">=</span> <span class="st">&#39;Valuta in $&#39;</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true"></a>    dati[<span class="st">&#39;chiusura&#39;</span>].plot(ax <span class="op">=</span> ax1, color <span class="op">=</span> <span class="st">&#39;g&#39;</span>, lw <span class="op">=</span> <span class="fl">2.</span>, legend <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true"></a>    dati[<span class="st">&#39;media mobile corta&#39;</span>].plot(ax <span class="op">=</span> ax1, color <span class="op">=</span> <span class="st">&#39;r&#39;</span>, lw <span class="op">=</span> <span class="fl">2.</span>, legend <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true"></a>    dati[<span class="st">&#39;media mobile lunga&#39;</span>].plot(ax <span class="op">=</span> ax1, color <span class="op">=</span> <span class="st">&#39;b&#39;</span>, lw <span class="op">=</span> <span class="fl">2.</span>, legend <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true"></a>    ax1.plot(dati.loc[dati.ordini <span class="op">==</span> <span class="fl">1.0</span>].index, dati[<span class="st">&#39;chiusura&#39;</span>][dati.ordini <span class="op">==</span>  <span class="fl">1.0</span>], <span class="st">&#39;^&#39;</span>, markersize <span class="op">=</span> <span class="dv">7</span>, color <span class="op">=</span> <span class="st">&#39;k&#39;</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true"></a>    ax1.plot(dati.loc[dati.ordini <span class="op">==</span> <span class="op">-</span><span class="fl">1.0</span>].index, dati[<span class="st">&#39;chiusura&#39;</span>][dati.ordini <span class="op">==</span>  <span class="op">-</span><span class="fl">1.0</span>], <span class="st">&#39;v&#39;</span>, markersize <span class="op">=</span> <span class="dv">7</span>, color <span class="op">=</span> <span class="st">&#39;k&#39;</span>)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true"></a>    plt.legend([<span class="st">&#39;Chiusura&#39;</span>, <span class="st">&#39;Media mobile corta&#39;</span>, <span class="st">&#39;Media mobile lunga&#39;</span>, <span class="st">&#39;Compra&#39;</span>, <span class="st">&#39;Vende&#39;</span>])</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true"></a>    plt.title(<span class="st">&#39;Doppia SMA&#39;</span>)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true"></a>    plt.show()</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true"></a>grafico(dati_doppia_media_mobile)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true"></a>key <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true"></a>secret <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true"></a>compra <span class="op">=</span> {</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true"></a>    <span class="st">&#39;symbol&#39;</span>: <span class="st">&#39;BTCUSDT&#39;</span>, </span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>    <span class="st">&#39;side&#39;</span>: <span class="st">&#39;BUY&#39;</span>, </span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true"></a>    <span class="st">&#39;type&#39;</span>: <span class="st">&#39;MARKET&#39;</span>, </span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true"></a>    <span class="st">&#39;quantity&#39;</span>: <span class="fl">0.002</span>, </span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true"></a>}</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true"></a>vendi <span class="op">=</span> {</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true"></a>    <span class="st">&#39;symbol&#39;</span>: <span class="st">&#39;BTCUSDT&#39;</span>, </span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true"></a>    <span class="st">&#39;side&#39;</span>: <span class="st">&#39;SELL&#39;</span>, </span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true"></a>    <span class="st">&#39;type&#39;</span>: <span class="st">&#39;MARKET&#39;</span>, </span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true"></a>    <span class="st">&#39;quantity&#39;</span>: <span class="fl">0.002</span>, </span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true"></a>}</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true"></a><span class="kw">def</span> compra_vendi(dati):</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true"></a>    client <span class="op">=</span> Client(key, secret, base_url <span class="op">=</span> <span class="st">&#39;https://testnet.binance.vision&#39;</span>)</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true"></a>    <span class="cf">if</span> dati[<span class="st">&#39;ordini&#39;</span>].iat[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true"></a>        client.new_order(<span class="op">**</span>compra)</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true"></a>    <span class="cf">elif</span> dati[<span class="st">&#39;ordini&#39;</span>].iat[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true"></a>        client.new_order(<span class="op">**</span>vendi)</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">60</span>):</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true"></a>  dati <span class="op">=</span> recupero_dati(<span class="st">&#39;BTCUSDT&#39;</span>, <span class="dv">60</span>)</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true"></a>  dati_doppia_media_mobile <span class="op">=</span> doppia_media_mobile(dati, <span class="dv">3</span>, <span class="dv">9</span>)</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true"></a>  compra_vendi(dati_doppia_media_mobile)</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true"></a>  time.sleep(<span class="dv">60</span>)</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true"></a><span class="kw">def</span> rapporto():</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true"></a>  dati_rapporto <span class="op">=</span> client.my_trades(<span class="st">&#39;BTCUSDT&#39;</span>)</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true"></a>  df_rapporto <span class="op">=</span> pd.json_normalize(dati_rapporto)</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true"></a>  <span class="cf">return</span> df_rapporto</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true"></a>rapporto()</span></code></pre></div>
 </pre>
 </div>
 </body>
