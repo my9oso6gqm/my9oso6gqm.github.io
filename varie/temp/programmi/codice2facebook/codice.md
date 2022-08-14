@@ -6,7 +6,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-
 def dati(valuta, limite):
     client = Client(base_url = 'https://api.binance.com')
     data = client.klines(valuta, '1m', limit = limite)
