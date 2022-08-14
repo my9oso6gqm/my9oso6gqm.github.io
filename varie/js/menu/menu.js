@@ -1,1 +1,1 @@
- document.getElementById("menu").innerHTML = '<a href="/">Pagina d\'entrata</a> - <a href="/blog/">Blog</a> <a href="/blog/blog.rss">(RSS)</a> - <a href="/varie/">Varie</a> - <a href="/contatti/">Contatti</a>';
+ document.getElementById("menu").innerHTML = '<center><a href="/">Pagina d\'entrata</a> - <a href="/blog/">Blog</a> <a href="/blog/blog.rss">(RSS)</a> - <a href="/varie/">Varie</a> - <a href="/contatti/">Contatti</a></center>';
