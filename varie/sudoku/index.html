@@ -10,7 +10,9 @@
 <script>
 var mySudokuJS = $("#sudoku").sudokuJS({
     boardSize: 4
-    board: board
+});
+$("#sudoku").sudokuJS({
+	board: board
 	,boardFinishedFn: function(data){
 		alert("board was finished!");
 	}
