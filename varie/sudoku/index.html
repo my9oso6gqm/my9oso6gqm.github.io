@@ -12,5 +12,13 @@ var mySudokuJS = $("#sudoku").sudokuJS({
     boardSize: 4
 });
 </script>
+<script>
+var mySudokuJS = $("#sudoku").sudokuJS({
+	board: board
+	,boardFinishedFn: function(data){
+		alert("board was finished!");
+	}
+});
+</script>
 </body>
 </html>
