@@ -1,0 +1,48 @@
+<!doctype html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      #output {
+        border: 0px groove aquamarine;
+        background-color: bisque;
+        width: 0px;
+        height: 0px;
+        font-family: monospace, serif;
+        font-size: 10px;
+        overflow-y: scroll;
+      }
+      #output span.log {
+        color:darkslateblue;
+      }
+      #output span.stdout {
+        color: black;
+      }
+      #output span.stderr {
+        font-weight: bold;
+        color:brown;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center
+      }
+    </style>
+  </head>
+
+  <body>
+    <center><p id="focushint"></p></center>
+    <div class="container">
+      <canvas id="screen" width="640" height="400" tabindex="0">This is where the DooM screen should render.</canvas>
+      <div id="output"></div>
+    </div>
+
+    <center><br><button id="leftButton" style="height:100px;width:100px">&#x2190;</button><button id="upButton" style="height:100px;width:100px">&#x2191;</button><button id="downButton" style="height:100px;width:100px">&#x2193;</button><button id="rightButton" style="height:100px;width:100px">&#x2192;</button><br><br><button id="ctrlButton" style="height:100px;width:100px">ctrl</button><button id="enterButton" style="height:100px;width:100px">&#x23CE;</button><button id="spaceButton" style="height:100px;width:100px">&nbsp;&nbsp;&nbsp;&nbsp;</button><button id="altButton" style="height:100px;width:100px">alt</button></center>
+
+    <script src="main.js" defer></script>
+  </body>
+
+</html>
