@@ -10,12 +10,35 @@
 <body>
 <center><div id='sudoku'></div></center>
 <script>
-var mySudokuJS = $("#sudoku").sudokuJS({
-    boardSize: 9
-    ,boardFinishedFn: function(data){
-        alert("Partita finita!");
-	}
+var sudoku = $("#sudoku").sudokuJS({
+boardSize: 9,
+boardFinishedFn: function(data){
+alert("Partita finita!");
+}
 });
+
+var board  = [];
+var board1 = [];
+
+function saveboard() {
+var board = sudoku.getBoard();
+for(var i=0; i<81; i++){
+if(i in board && board[i].val != null) board1[i] = board[i].val;
+};
+localStorage.setItem('board2', JSON.stringify(board1));
+};
+
+function loadsavedboard() {
+var board3 = JSON.parse(localStorage.getItem("board2"), (key, value) => value === null || value === '' ? undefined : value);
+if(!(80 in board3)) board3[80] = undefined;
+console.log(board3);
+sudoku.setBoard(board3);
+};
 </script>
+<br>
+<center><button onclick="saveboard()">Salva</button></center>
+<br>
+<center><button onclick="loadsavedboard()">Carica</button></center>
 </body>
 </html>
+
