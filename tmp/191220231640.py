@@ -8,6 +8,8 @@ Sono temute per essere ostiche e in effetti hanno migliaia, letteralmente miglia
 
 ![191220231646](https://my9oso6gqm.github.io/tmp/191220231646.jpg =100x20)
 
+<img src="https://my9oso6gqm.github.io/tmp/191220231646.jpg" alt="drawing" width="200"/>
+
 Ora che riesco a interrogare ib direttamente e ne ho compreso la logica delle sue api senza ripiegare a lib terze posso buttarmi sulla cosa davvero interessante che è pensare e scrivere algoritmi.
 
 """)
