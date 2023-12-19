@@ -2,7 +2,7 @@ import streamlit as st
 
 st.markdown(r"""
 
-# Ibkr api ufficiali
+# Ibkr api ufficiali, yeee!
 
 Sono temute per essere ostiche e in effetti hanno migliaia, letteralmente migliaia di parametri possibili. La documentazione è completa ma manca qualcosa per iniziare e ci sta solo un sito terzo con un esempio, che però ho scoperto essere ripreso dal blog di ib. Questo codice invece viene dal canale youtube ufficiale di ib.
 
