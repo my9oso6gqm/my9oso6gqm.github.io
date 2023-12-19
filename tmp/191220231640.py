@@ -8,7 +8,7 @@ Sono temute per essere ostiche e in effetti hanno migliaia, letteralmente miglia
 
 """)
 
-st.image('https://my9oso6gqm.github.io/tmp/191220231646.jpg')
+st.image('https://my9oso6gqm.github.io/tmp/191220231708.jpg')
 
 st.markdown(r"""
 
