@@ -49,10 +49,10 @@ client.API_URL = 'https://testnet.binance.vision/api'<br>
 history = pd.DataFrame()<br>
 <br>
 for x in range(0,540):<br>
-    time.sleep(60)<br>
-    price = client.get_symbol_ticker(symbol = 'DOGEUSDT')<br>
-    price_df = pd.json_normalize(price)<br>
-    history = pd.concat([history,price_df])<br>
+&#32;&#32;&#32;&#32;time.sleep(60)<br>
+&#32;&#32;&#32;&#32;price = client.get_symbol_ticker(symbol = 'DOGEUSDT')<br>
+&#32;&#32;&#32;&#32;price_df = pd.json_normalize(price)<br>
+&#32;&#32;&#32;&#32;history = pd.concat([history,price_df])<br>
 </p>
 </div>
 <br>
