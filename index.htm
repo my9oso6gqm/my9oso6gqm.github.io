@@ -34,6 +34,66 @@ Logica matematica, teoria dei numeri, calcolo mentale, giganti sistemi di equazi
 <br>
 <br>
 
+<div id='2024-02-03T19:51:33+0000'>
+<p>
+Partiti!<br>
+<br>
+import time<br>
+import pandas as pd<br>
+from binance.client import Client<br>
+<br>
+client = Client('OMISSIS', 'OMISSIS')<br>
+<br>
+client.API_URL = 'https://testnet.binance.vision/api'<br>
+<br>
+history = pd.DataFrame()<br>
+<br>
+for x in range(0,540):<br>
+    time.sleep(60)<br>
+    price = client.get_symbol_ticker(symbol = 'DOGEUSDT')<br>
+    price_df = pd.json_normalize(price)<br>
+    history = pd.concat([history,price_df])<br>
+</p>
+</div>
+<br>
+<div id='2024-02-03T19:45:43+0000'>
+<p>
+Sto prendendo i dati in tempo reale di dogecoin da Binance con un for loop python, la tabella è una sequela dello stesso valore: 0.07937000. Provo con Bitcoin stessa storia. Dove diamine sbaglio mi chiedo. Ah, mettiamo uno sleep di 60 secondi tra un'interrogazione e un'altra.<br>
+0  BTCUSDT  43036.74000000<br>
+0  BTCUSDT  43036.74000000<br>
+0  BTCUSDT  43036.74000000<br>
+0  BTCUSDT  43036.74000000<br>
+0  BTCUSDT  43036.73000000<br>
+0  BTCUSDT  43035.18000000<br>
+0  BTCUSDT  43034.39000000<br>
+0  BTCUSDT  43034.39000000<br>
+0  BTCUSDT  43033.68000000<br>
+0  BTCUSDT  43033.68000000<br>
+Maledetto fine settimana.
+</p>
+</div>
+<br>
+<div id='2024-02-03T19:14:32+0000'>
+<p>
+Psicologi, thasup - Nlfp https://youtube.com/watch?v=olGfJpHViDw
+</p>
+</div>
+<br>
+<div id='2024-02-03T19:11:18+0000'>
+<p>
+Apple ha rilasciato il linguaggio Pkl, dedicato a impostare le configurazioni in sw production ready. Plugin per vim e vscode.
+</p>
+</div>
+<br>
+<div id='2024-02-03T17:16:55+0000'>
+<p>
+- Funzionari statunitensi citati dalla Cnn affermano che gli attacchi - diretti contro 85 obiettivi - hanno colpito quattro strutture in Siria e tre in Iraq, appartenenti secondo le fonti a varie milizie sostenute dall’Iran, che gli Stati Uniti accusano dell’attacco in Giordania. I velivoli hanno raggiunto la regione direttamente dagli Stati Uniti, secondo quanto riferito dal generale Douglas Sims, citato dall’emittente. “Abbiamo colpito esattamente quello che intendevamo colpire”, ha aggiunto Sims. “La nostra risposta è iniziata oggi. Continuerà nei tempi e nei luoghi da noi scelti”, ha commentato dopo i raid il presidente americano Biden, che ieri nel Delaware aveva partecipato all’accoglienza solenne delle salme dei tre militari uccisi, il ’dignified transfer’. “Gli Stati Uniti non cercano il conflitto in Medio Oriente o in qualsiasi altra parte del mondo”, ha aggiunto. “Ma che tutti coloro che potrebbero cercare di farci del male sappiano questo: se fate del male a un americano, noi risponderemo”. “Oggi ho assistito al ritorno di questi coraggiosi americani alla base aerea di Dover e ho parlato con ciascuna delle loro famiglie. Questo pomeriggio, sotto la mia direzione, le forze militari statunitensi hanno colpito obiettivi in strutture in Iraq e Siria che l’IRGC (il Corpo delle Guardie della rivoluzione islamica) e le milizie ad esso affiliate usano per attaccare le forze statunitensi”.<br>
+- Hamas si divide sulla proposta di accordo per il rilascio degli ostaggi trattenuti a Gaza: secondo il Wall Street Journal, il capo dell’organizzazione terroristica a Gaza, Yahya Sinwar, sosterrebbe una tregua temporanea mentre i suoi leader al di fuori della Striscia starebbero spingendo per ulteriori concessioni ed un cessate il fuoco permanente. Sinwar punterebbe ad una pausa di sei settimane per far riorganizzare i miliziani di Hamas e fare entrare più aiuti a Gaza, scrive il Wsj citando fonti a conoscenza dei contenuti dei negoziati. Il capo del Politburo Ismail Haniyeh, al contrario, starebbe spingendo per un cessate il fuoco permanente con garanzie internazionali e un piano per ricostruire l’enclave.<br>
+- “Il villaggio di Zadorozhny, distretto di Krasnoyaruzhsky, è stato colpito dal fuoco delle forze armate ucraine. Non ci sono state vittime. Diversi danni sono stati rilevati in due abitazioni private e ci sono danni alla linea elettrica: i villaggi di Zadorozhny, di Terebreno e di Prilesye sono senza elettricità”. Lo ha scritto su Telegram il governatore della regione di Belgorod Vyacheslav Gladkov.<br>
+ilsole
+</p>
+</div>
+<br>
 <div id='2024-02-03T01:52:00+0000'>
 <p>
 'if you ever wanted to try to impress Terry Tao, here's your chance!' (e io mi sono perso 2 battiti cardiaci) <a href="https://github.com/AlexKontorovich/PrimeNumberTheoremAnd">https://github.com/AlexKontorovich/PrimeNumberTheoremAnd</a>
